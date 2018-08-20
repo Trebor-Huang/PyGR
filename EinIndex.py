@@ -127,6 +127,10 @@ vec_sym = np.frompyfunc(sympy.simplify, 1, 1)
 
 
 class Tensor:
+    IMPLICIT_INDEX_RAISING_LOWERING = False
+    METRIC = None
+    INVERSE_METRIC = None
+
     def __init__(self, ind, arr=None):
         if type(ind) == Index:
             ind = (ind,)
@@ -134,7 +138,7 @@ class Tensor:
             self.T = np.zeros((DIMENSION,) * len(ind), dtype=Real)
         else:
             self.T = arr.reshape((DIMENSION,) * len(ind))
-        self.IndexType = tuple(ind)  # Should be like (True, False,...);True for contravariant
+        self.IndexType = tuple(ind)  # Should be like (True, False,...); True for contravariant
         self.expand()
 
     def __getitem__(self, index):
@@ -142,7 +146,14 @@ class Tensor:
             index = (index,)
         it = tuple([i.contrv for i in index])
         if self.IndexType != it:
-            raise ValueError('Index type does not match.')
+            if Tensor.IMPLICIT_INDEX_RAISING_LOWERING:
+                raise NotImplementedError
+                if len(self.IndexType) != len(it):
+                    raise ValueError('Index number does not match.')
+                for i in range(len(it)):
+                    if(self.IndexType[i], it[i]) == (COV, CONTRAV):
+                        pass  # TODO
+            raise ValueError('Index type does not match, perhaps you want to enable automatic index raising/lowering?')
         return IndexHandle(self, index)
 
     def __setitem__(self, ind, other: IndexHandle):
@@ -200,14 +211,27 @@ class Tensor:
         self.T = vec_exp(self.T)
 
 
+Tensor.METRIC = Tensor(arr=np.array([[Real(1), Real(0)], [Real(0), Real(1)]]), ind=(COV, COV))
+Tensor.INVERSE_METRIC = Tensor(arr=np.array([[Real(1), Real(0)], [Real(0), Real(1)]]), ind=(CONTRAV, CONTRAV))
+Tensor.IMPLICIT_INDEX_RAISING_LOWERING = False
+
+
 class D:
     """Implements derivative.
-    Usage: D[index]()
+    Usage: D(index)()
     """
-    pass
+    _d = np.frompyfunc(d, 2, 1)
 
+    def __init__(self, index):
+        if index.contrv and not Tensor.IMPLICIT_INDEX_RAISING_LOWERING:
+            raise ValueError('The derivative must be covariant.')
+        elif index.contrv:
+            raise NotImplementedError('Not Implemented: implicit index raising/lowering')
+        self.index = index
 
-G = Tensor(arr=np.array([[Real(1), 0], [1, 0]]), ind=(COV, COV))
+    def __call__(self, op: IndexHandle):
+        return IndexHandle(np.array([self._d(op.tensor.T, i) for i in x]), i=(self.index, *op.ind))
+
 
 if __name__ == '__main__':
     # UNIT TEST
@@ -216,8 +240,10 @@ if __name__ == '__main__':
     a, b, c, d, e, f = Index.new('a b c d e f')
     print(V[a] * V[b], V[a] + V[a], V[a] - V[a], V[b] / V[a], 0.3 / V[a], sep='\n')
     R = Tensor(arr=np.array([[[1, 0], [0, x[0]]], [[x[1] + 1, 0], [x[0] * x[1] - 2, 0]]]), ind=(CONTRAV, CONTRAV, COV))
-    V = Tensor(ind=(CONTRAV, CONTRAV, CONTRAV, COV))
+    T = Tensor(ind=(CONTRAV, CONTRAV, CONTRAV, COV))
     print(V)
-    V[a, c, d, -e] = R[a, b, -e] * R[c, d, -b]
-    print(V)
-    print(D[3])
+    T[a, c, d, -e] = R[a, b, -e] * R[c, d, -b]
+    print(T)
+    print()
+    print(D(-a)(V[b]))
+
