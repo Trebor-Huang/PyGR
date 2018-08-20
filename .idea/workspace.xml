@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="faaa0b37-4a5d-4fd8-a43b-9127fa6594fd" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EinIndex.py" beforeDir="false" afterPath="$PROJECT_DIR$/EinIndex.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,18 +14,19 @@
     <session id="1817950979">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.6" value="1" />
           <entry key="project.opened" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="351" />
+          <entry key="py" value="416" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="351" />
+          <entry key="Python" value="416" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
@@ -46,8 +46,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/EinIndex.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3480">
-              <caret line="232" column="99" selection-start-line="232" selection-start-column="99" selection-end-line="232" selection-end-column="99" />
+            <state relative-caret-position="463">
+              <caret line="247" column="22" lean-forward="true" selection-start-line="247" selection-start-column="22" selection-end-line="247" selection-end-column="22" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -169,7 +169,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32857144" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32857144" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3984127" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -253,8 +253,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/EinIndex.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3480">
-          <caret line="232" column="99" selection-start-line="232" selection-start-column="99" selection-end-line="232" selection-end-column="99" />
+        <state relative-caret-position="463">
+          <caret line="247" column="22" lean-forward="true" selection-start-line="247" selection-start-column="22" selection-end-line="247" selection-end-column="22" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

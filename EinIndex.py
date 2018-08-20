@@ -67,7 +67,7 @@ class IndexHandle:
                 curind = i[inum]
                 try:
                     cind = i.index(-curind, inum + 1)
-                    rten = np.sum(np.diagonal(rten, axis1=inum, axis2=cind), axis=-1)
+                    rten = np.array(np.sum(np.diagonal(rten, axis1=inum, axis2=cind), axis=-1))
                     i.remove(curind)
                     i.remove(-curind)
                 except ValueError:
@@ -245,5 +245,5 @@ if __name__ == '__main__':
     T[a, c, d, -e] = R[a, b, -e] * R[c, d, -b]
     print(T)
     print()
-    print(D(-a)(V[b]))
+    print(D(-a)(V[a]))
 
