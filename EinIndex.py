@@ -31,14 +31,6 @@ class Index:
         return self.name == other.name and self.contrv == other.contrv
 
 
-class Coord:
-    """
-    Manages coordinate transforms between different sets of indices.
-    Usage: create transformations by tr = Coord(...), then use tr(index).
-    """
-    pass  # TODO
-
-
 class IndexHandle:
     """
     The art of representing a whole tensor with a component...
