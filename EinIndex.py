@@ -57,7 +57,7 @@ class IndexHandle:
             icopy = []
             i = list(i)
             inum = 0
-            while True:
+            while True:  # Okay, the code here is extreeeeeemly clumsy. TODO pack this up
                 curind = i[inum]
                 try:
                     cind = i.index(-curind, inum + 1)
@@ -127,9 +127,13 @@ class IndexHandle:
             return IndexHandle(other / self.tensor, self.ind)
         return IndexHandle(other.tensor / self.tensor, (*other.ind, *[-i for i in self.ind]))
 
+    def __neg__(self):
+        return IndexHandle(-self.tensor, self.ind)
+
 
 vec_exp = np.frompyfunc(sympy.expand, 1, 1)
 vec_sym = np.frompyfunc(sympy.simplify, 1, 1)
+vec_trig = np.frompyfunc(sympy.trigsimp, 1, 1)
 
 
 class Tensor:
@@ -219,6 +223,9 @@ class Tensor:
     def expand(self):
         self.T = vec_exp(self.T)
 
+    def trig_simp(self):
+        self.T = vec_trig(self.T)
+
 
 Tensor.METRIC = Tensor(arr=np.array([[Real(1), Real(0)], [Real(0), Real(1)]]), ind=(COV, COV))
 Tensor.INVERSE_METRIC = Tensor(arr=np.array([[Real(1), Real(0)], [Real(0), Real(1)]]), ind=(CONTRAV, CONTRAV))
@@ -239,7 +246,7 @@ class D:
         self.index = index
 
     def __call__(self, op: IndexHandle):
-        return IndexHandle(np.array([self._d(op.tensor.T, i) for i in x]), i=(self.index, *op.ind))
+        return IndexHandle(np.array([self._d(op.tensor.T, i) for i in x]), i=(*op.ind, self.index))
 
 
 if __name__ == '__main__':

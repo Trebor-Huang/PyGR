@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="faaa0b37-4a5d-4fd8-a43b-9127fa6594fd" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/DiffGeo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiffGeo.py" beforeDir="false" afterPath="$PROJECT_DIR$/DiffGeo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EinIndex.py" beforeDir="false" afterPath="$PROJECT_DIR$/EinIndex.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,20 +16,20 @@
       <usages-collector id="statistics.lifecycle.project">
         <counts>
           <entry key="project.closed" value="2" />
-          <entry key="project.open.time.6" value="2" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.open.time.6" value="3" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="8" />
-          <entry key="py" value="1907" />
+          <entry key="py" value="3403" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="8" />
-          <entry key="Python" value="1907" />
+          <entry key="Python" value="3403" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
@@ -50,12 +49,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/EinIndex.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="233" column="26" lean-forward="true" selection-start-line="233" selection-start-column="26" selection-end-line="233" selection-end-column="26" />
+            <state relative-caret-position="300">
+              <caret line="248" column="97" selection-start-line="248" selection-start-column="97" selection-end-line="248" selection-end-column="97" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
-                <marker date="1535286047703" expanded="true" signature="2159:2168" ph="..." />
-                <marker date="1535286047703" expanded="true" signature="2159:2559" ph="..." />
+                <marker date="1535310544663" expanded="true" signature="2225:2234" ph="..." />
+                <marker date="1535310544663" expanded="true" signature="2225:2625" ph="..." />
               </folding>
             </state>
           </provider>
@@ -64,12 +63,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DiffGeo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="8" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
+            <state relative-caret-position="280">
+              <caret line="57" column="45" selection-start-line="57" selection-start-column="45" selection-end-line="57" selection-end-column="45" />
               <folding>
                 <element signature="e#62#84#0" expanded="true" />
-                <marker date="1535287079420" expanded="true" signature="431:486" ph="..." />
-                <marker date="1535287079420" expanded="true" signature="509:520" ph="..." />
+                <marker date="1535310632717" expanded="true" signature="495:1578" ph="..." />
+                <marker date="1535310632717" expanded="true" signature="1601:1613" ph="..." />
               </folding>
             </state>
           </provider>
@@ -124,7 +123,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -136,6 +134,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="RunDashboard">
@@ -226,14 +225,14 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32857144" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32857144" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32857144" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3984127" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32857144" />
       <window_info anchor="bottom" id="Python Console" order="10" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -310,24 +309,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/EinIndex.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="233" column="26" lean-forward="true" selection-start-line="233" selection-start-column="26" selection-end-line="233" selection-end-column="26" />
+        <state relative-caret-position="300">
+          <caret line="248" column="97" selection-start-line="248" selection-start-column="97" selection-end-line="248" selection-end-column="97" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
-            <marker date="1535286047703" expanded="true" signature="2159:2168" ph="..." />
-            <marker date="1535286047703" expanded="true" signature="2159:2559" ph="..." />
+            <marker date="1535310544663" expanded="true" signature="2225:2234" ph="..." />
+            <marker date="1535310544663" expanded="true" signature="2225:2625" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/DiffGeo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="8" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
+        <state relative-caret-position="280">
+          <caret line="57" column="45" selection-start-line="57" selection-start-column="45" selection-end-line="57" selection-end-column="45" />
           <folding>
             <element signature="e#62#84#0" expanded="true" />
-            <marker date="1535287079420" expanded="true" signature="431:486" ph="..." />
-            <marker date="1535287079420" expanded="true" signature="509:520" ph="..." />
+            <marker date="1535310632717" expanded="true" signature="495:1578" ph="..." />
+            <marker date="1535310632717" expanded="true" signature="1601:1613" ph="..." />
           </folding>
         </state>
       </provider>
