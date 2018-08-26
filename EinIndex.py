@@ -1,3 +1,5 @@
+from numbers import Number
+
 import numpy as np
 import sympy
 from sympy import RealNumber as Real, symbols as sym, diff as d
@@ -75,10 +77,14 @@ class IndexHandle:
             self.tensor = T
 
     def __add__(self, other):
-        if self.ind != other.ind:
-            raise ValueError(f'Indices do not match: {self.ind} and {other.ind}')
-        else:
-            return IndexHandle(self.tensor + other.tensor, self.ind)
+        # Find a permutation
+        perm = []
+        for index in self.ind:
+            try:
+                perm.append(other.ind.index(index))
+            except ValueError:
+                raise ValueError(f'Indices do not match: {self.ind} and {other.ind}')
+        return IndexHandle(self.tensor + Tensor(arr=np.transpose(other.tensor.T, axes=perm),ind=self.tensor.IndexType), self.ind)
 
     def __mul__(self, other):
         if type(other) == float:
@@ -92,10 +98,14 @@ class IndexHandle:
         return repr(self.tensor)
 
     def __sub__(self, other):
-        if self.ind != other.ind:
-            raise ValueError(f'Indices do not match: {self.ind} and {other.ind}')
-        else:
-            return IndexHandle(self.tensor - other.tensor, self.ind)
+        # Find a permutation
+        perm = []
+        for index in self.ind:
+            try:
+                perm.append(other.ind.index(index))
+            except ValueError:
+                raise ValueError(f'Indices do not match: {self.ind} and {other.ind}')
+        return IndexHandle(self.tensor - Tensor(arr=np.transpose(other.tensor.T, axes=perm),ind=self.tensor.IndexType), self.ind)
 
     def __truediv__(self, other):
         if type(other) == float:
@@ -103,10 +113,14 @@ class IndexHandle:
         return IndexHandle(self.tensor / other.tensor, (*self.ind, *[-i for i in other.ind]))
 
     def __rsub__(self, other):
-        if self.ind != other.ind:
-            raise ValueError(f'Indices do not match: {self.ind} and {other.ind}')
-        else:
-            return IndexHandle(other.tensor - self.tensor, self.ind)
+        # Find a permutation
+        perm = []
+        for index in self.ind:
+            try:
+                perm.append(other.ind.index(index))
+            except ValueError:
+                raise ValueError(f'Indices do not match: {self.ind} and {other.ind}')
+        return IndexHandle(Tensor(arr=np.transpose(other.tensor.T, axes=perm),ind=self.tensor.IndexType)-self.tensor, self.ind)
 
     def __rtruediv__(self, other):
         if type(other) == float:
@@ -150,8 +164,11 @@ class Tensor:
 
     def __setitem__(self, ind, other: IndexHandle):
         axes = []
-        for i in ind:
-            axes.append(other.ind.index(i))
+        try:
+            for i in ind:
+                axes.append(other.ind.index(i))
+        except ValueError:
+            raise ValueError(f'Indices do not match: {self.ind} and {other.ind}')
         self.T = other.tensor.T.transpose(axes)
         self.expand()
 
@@ -238,4 +255,8 @@ if __name__ == '__main__':
     print(T)
     print()
     print(D(-a)(V[a]))
+    print()
+    print()
+    K = Tensor(arr=np.array([[x[0],1],[1,2]]), ind=(CONTRAV, CONTRAV))
+    print(K[a,b]+K[b,a])
 
