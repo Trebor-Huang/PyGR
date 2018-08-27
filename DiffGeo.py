@@ -2,9 +2,12 @@
 from EinIndex import *
 import sympy
 
+temp_ind = Index.new("temp_index_in_DiffGeo.py")[0]  # No index name is gonna crash that one, right??
+i, m, k, l = Index.new("i m k l")  # This function processes pure tensors, so creating indices is safe
+
 
 def christoffel(simp=True):
-    i, m, k, l = Index.new("i m k l")  # This function produces pure tensors, so creating indices is safe
+    """Returns a tensor(awww) Gamma[i, -k, -l] which is the Christoffel symbol associated with the metric."""
     C = Tensor(ind=(CONTRAV, COV, COV))
     C[i, -k, -l] = Tensor.INVERSE_METRIC[i, m] * (
             D(-k)(Tensor.METRIC[-l, -m]) - D(-m)(Tensor.METRIC[-k, -l]) + D(-l)(Tensor.METRIC[-m, -k])) / 2.
@@ -25,7 +28,6 @@ class Nabla:
         self.index = index
 
     def __call__(self, op: IndexHandle):
-        temp_ind = Index.new("temp_index_in_covariant_derivative")[0]  # No index name is gonna crash that one, right??
         T = Tensor(ind=(*op.tensor.IndexType, COV))
         T[(*op.ind, self.index)] = D(self.index)(op)
         for i in range(len(op.ind)):  # messy code... TODO repair this?
@@ -36,8 +38,22 @@ class Nabla:
         return T[(*op.ind, self.index)]
 
 
-def riemann(simp=True):
-    pass
+def commutator(X: Tensor, Y: Tensor, j:Index) -> Tensor:
+    """Returns the commutator [X,Y] of two vector fields."""
+    return (D(temp_ind)(X[temp_ind])*Y[j] - D(temp_ind)(Y[temp_ind])*X[j]).tensor
+
+
+def riemann(connection=None, simp=True):
+    """Returns the Riemann curvature tensor.
+    Warning: the convention used here is the same as Carrol(2003) at
+    http://ned.ipac.caltech.edu/level5/March01/Carroll3/Carroll3.html"""
+    if connection is None:
+        connection = christoffel()
+    R = Tensor(ind=(CONTRAV, COV, COV, COV))
+    R[i, -m, -k, -l] = D(-k)(connection[i, -l, -m]) - D(-l)(connection[i, -k, -m]) + \
+        connection[i, -k, -temp_ind] * connection[temp_ind, -l, -m] - \
+        connection[i, -l, -temp_ind] * connection[temp_ind, -k, -m]
+    return R
 
 
 if __name__ == "__main__":
@@ -50,9 +66,14 @@ if __name__ == "__main__":
     print(Tensor.METRIC[-a, -b] * Tensor.INVERSE_METRIC[b, c])  # Metric is normalizing correctly
     print()
     Nabla.connection = christoffel()  # This test is based on Carrol(2003). The result is consistent.
-    Nabla.connection.trig_simp()
     print(Nabla.connection)
     T = Tensor((COV, COV, COV))
     T[-a,-b,-c] = Nabla(-a)(Tensor.METRIC[-b, -c])
     T.trig_simp()
     print(T)  # Metric compatibility! Hurray!
+    R = riemann()
+    R.trig_simp()
+    R.simplify()
+    # v = R[a, -b, -a, -d]  # TODO This seems to return a scalar instead of a (0,0) tensor?
+    # v.tensor.simplify()  # TODO The result doesn't seem right...
+    print(R)

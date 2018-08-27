@@ -1,5 +1,3 @@
-from numbers import Number
-
 import numpy as np
 import sympy
 from sympy import RealNumber as Real, symbols as sym, diff as d
@@ -84,7 +82,8 @@ class IndexHandle:
                 perm.append(other.ind.index(index))
             except ValueError:
                 raise ValueError(f'Indices do not match: {self.ind} and {other.ind}')
-        return IndexHandle(self.tensor + Tensor(arr=np.transpose(other.tensor.T, axes=perm),ind=self.tensor.IndexType), self.ind)
+        return IndexHandle(self.tensor + Tensor(arr=np.transpose(other.tensor.T, axes=perm), ind=self.tensor.IndexType),
+                           self.ind)
 
     def __mul__(self, other):
         if type(other) == float:
@@ -105,7 +104,8 @@ class IndexHandle:
                 perm.append(other.ind.index(index))
             except ValueError:
                 raise ValueError(f'Indices do not match: {self.ind} and {other.ind}')
-        return IndexHandle(self.tensor - Tensor(arr=np.transpose(other.tensor.T, axes=perm),ind=self.tensor.IndexType), self.ind)
+        return IndexHandle(self.tensor - Tensor(arr=np.transpose(other.tensor.T, axes=perm), ind=self.tensor.IndexType),
+                           self.ind)
 
     def __truediv__(self, other):
         if type(other) == float:
@@ -120,7 +120,8 @@ class IndexHandle:
                 perm.append(other.ind.index(index))
             except ValueError:
                 raise ValueError(f'Indices do not match: {self.ind} and {other.ind}')
-        return IndexHandle(Tensor(arr=np.transpose(other.tensor.T, axes=perm),ind=self.tensor.IndexType)-self.tensor, self.ind)
+        return IndexHandle(Tensor(arr=np.transpose(other.tensor.T, axes=perm), ind=self.tensor.IndexType) - self.tensor,
+                           self.ind)
 
     def __rtruediv__(self, other):
         if type(other) == float:
@@ -133,7 +134,7 @@ class IndexHandle:
 
 vec_exp = np.frompyfunc(sympy.expand, 1, 1)
 vec_sym = np.frompyfunc(sympy.simplify, 1, 1)
-vec_trig = np.frompyfunc(sympy.trigsimp, 1, 1)
+vec_trig = np.frompyfunc(sympy.expand_trig, 1, 1)
 
 
 class Tensor:
@@ -161,7 +162,7 @@ class Tensor:
                 if len(self.IndexType) != len(it):
                     raise ValueError('Index number does not match.')
                 for i in range(len(it)):
-                    if(self.IndexType[i], it[i]) == (COV, CONTRAV):
+                    if (self.IndexType[i], it[i]) == (COV, CONTRAV):
                         pass  # TODO
             raise ValueError('Index type does not match, perhaps you want to enable automatic index raising/lowering?')
         return IndexHandle(self, index)
@@ -172,7 +173,7 @@ class Tensor:
             for i in ind:
                 axes.append(other.ind.index(i))
         except ValueError:
-            raise ValueError(f'Indices do not match: {self.ind} and {other.ind}')
+            raise ValueError(f'Indices do not match: {ind} and {other.ind}')
         self.T = other.tensor.T.transpose(axes)
         self.expand()
 
@@ -264,6 +265,7 @@ if __name__ == '__main__':
     print(D(-a)(V[a]))
     print()
     print()
-    K = Tensor(arr=np.array([[x[0],1],[1,2]]), ind=(CONTRAV, CONTRAV))
-    print(K[a,b]+K[b,a])
-
+    K = Tensor(arr=np.array([[x[0], 1], [1, 2]]), ind=(CONTRAV, CONTRAV))
+    print(K[a, b] + K[b, a])
+    print()
+    print(K[a, b] * Tensor.METRIC[-a, -b])
