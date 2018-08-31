@@ -134,7 +134,7 @@ class IndexHandle:
 
 vec_exp = np.frompyfunc(sympy.expand, 1, 1)
 vec_sym = np.frompyfunc(sympy.simplify, 1, 1)
-vec_trig = np.frompyfunc(sympy.expand_trig, 1, 1)
+vec_trig = np.frompyfunc(sympy.trigsimp, 1, 1)
 
 
 class Tensor:

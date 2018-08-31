@@ -45,7 +45,7 @@ def commutator(X: Tensor, Y: Tensor, j:Index) -> Tensor:
 
 def riemann(connection=None, simp=True):
     """Returns the Riemann curvature tensor.
-    Warning: the convention used here is the same as Carrol(2003) at
+    Warning: the convention used here is the same as Carrol(1997) at
     http://ned.ipac.caltech.edu/level5/March01/Carroll3/Carroll3.html"""
     if connection is None:
         connection = christoffel()
@@ -65,15 +65,16 @@ if __name__ == "__main__":
     a,b,c,d = Index.new('a b c d')
     print(Tensor.METRIC[-a, -b] * Tensor.INVERSE_METRIC[b, c])  # Metric is normalizing correctly
     print()
-    Nabla.connection = christoffel()  # This test is based on Carrol(2003). The result is consistent.
+    Nabla.connection = christoffel()  # This test is based on Carrol(1997). The result is consistent.
     print(Nabla.connection)
     T = Tensor((COV, COV, COV))
     T[-a,-b,-c] = Nabla(-a)(Tensor.METRIC[-b, -c])
+    T.expand()
     T.trig_simp()
-    print(T)  # Metric compatibility! Hurray!
+    print("T", T)  # Metric compatibility! Hurray!
     R = riemann()
     R.trig_simp()
     R.simplify()
-    # v = R[a, -b, -a, -d]  # TODO This seems to return a scalar instead of a (0,0) tensor?
-    # v.tensor.simplify()  # TODO The result doesn't seem right...
     print(R)
+    v = R[a, -b, -a, -d] * Tensor.INVERSE_METRIC[b, d]
+    print(v)  # TODO Here is a mysterious calculation error, which I cannot find the source...
